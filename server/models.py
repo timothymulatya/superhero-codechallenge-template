@@ -76,6 +76,7 @@ class HeroPower(db.Model, SerializerMixin):
 
     # add validation
     @validates('strength')
+        # Ensure strength is one of the allowed values
     def validate_strength(self, key, strength):
         if strength not in ['Strong', 'Weak', 'Average']:
             raise ValueError("Strength must be 'Strong', 'Weak', or 'Average'")
