@@ -21,7 +21,9 @@ import os
 import werkzeug
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
+    # Database configuration
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # Disable modification tracking for performance
 app.json.compact = False
 
 migrate = Migrate(app, db)
