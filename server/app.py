@@ -1,3 +1,8 @@
+import werkzeug
+# Fix for newer werkzeug versions
+if not hasattr(werkzeug.urls, 'url_quote'):
+    werkzeug.urls.url_quote = werkzeug.urls.quote
+
 from flask import Flask, request, make_response
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
@@ -33,7 +38,7 @@ class Heroes(Resource):
 # GET /heroes/:id
 class HeroById(Resource):
     def get(self, id):
-        hero = Hero.query.get(id)
+        hero = db.session.get(Hero, id)
         if not hero:
             return {"error": "Hero not found"}, 404
         
@@ -49,13 +54,13 @@ class Powers(Resource):
 # GET /powers/:id and PATCH /powers/:id
 class PowerById(Resource):
     def get(self, id):
-        power = Power.query.get(id)
+        power = db.session.get(Power, id)
         if not power:
             return {"error": "Power not found"}, 404
         return power.to_dict(only=('id', 'name', 'description')), 200
     
     def patch(self, id):
-        power = Power.query.get(id)
+        power = db.session.get(Power, id)
         if not power:
             return {"error": "Power not found"}, 404
         
@@ -83,8 +88,8 @@ class HeroPowers(Resource):
             return {"errors": ["Missing required fields"]}, 400
         
         # Verify hero and power exist
-        hero = Hero.query.get(data['hero_id'])
-        power = Power.query.get(data['power_id'])
+        hero = db.session.get(Hero, data['hero_id'])
+        power = db.session.get(Power, data['power_id'])
         
         if not hero or not power:
             return {"errors": ["Hero or Power not found"]}, 404
