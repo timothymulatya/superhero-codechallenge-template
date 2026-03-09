@@ -40,6 +40,7 @@ def index():
 # GET /heroes
 
 
+# Heroes collection resource
 class Heroes(Resource):
     def get(self):
         heroes = Hero.query.all()
@@ -48,6 +49,7 @@ class Heroes(Resource):
 # GET /heroes/:id
 
 
+# Hero singleton resource
 class HeroById(Resource):
     def get(self, id):
         hero = db.session.get(Hero, id)
@@ -60,6 +62,7 @@ class HeroById(Resource):
 # GET /powers
 
 
+# Powers collection resource
 class Powers(Resource):
     def get(self):
         powers = Power.query.all()
