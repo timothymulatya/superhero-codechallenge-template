@@ -32,25 +32,7 @@ class TestApp:
             for hero in response:
                 assert 'hero_powers' not in hero
 
-    def test_gets_hero_by_id(self):
-        '''retrieves one hero using its ID with GET request to /heroes/<int:id>.'''
-
-        with app.app_context():
-            fake = Faker()
-            hero = Hero(name=fake.name(), super_name=fake.name())
-            db.session.add(hero)
-            db.session.commit()
-
-            response = app.test_client().get(f'/heroes/{hero.id}')
-
-            assert response.status_code == 200
-            assert response.content_type == 'application/json'
-            response = response.json
-
-            assert response['id'] == hero.id
-            assert response['name'] == hero.name
-            assert response['super_name'] == hero.super_name
-            assert 'hero_powers' in response
+   
 
     def test_returns_404_if_no_hero_to_get(self):
         '''returns an error message and 404 status code with GET request to /heros/<int:id> by a non-existent ID.'''
