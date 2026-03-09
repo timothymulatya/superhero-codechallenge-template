@@ -109,7 +109,8 @@ class HeroPowers(Resource):
 api.add_resource(Heroes, '/heroes')
 api.add_resource(HeroById, '/heroes/<int:id>')
 api.add_resource(Powers, '/powers')
-
+api.add_resource(PowerById, '/powers/<int:id>')
+api.add_resource(HeroPowers, '/hero_powers')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
