@@ -30,12 +30,16 @@ def index():
     return '<h1>Code challenge</h1>'
 
 # GET /heroes
+
+
 class Heroes(Resource):
     def get(self):
         heroes = Hero.query.all()
         return [hero.to_dict(only=('id', 'name', 'super_name')) for hero in heroes], 200
 
 # GET /heroes/:id
+
+
 class HeroById(Resource):
     def get(self, id):
         hero = db.session.get(Hero, id)
@@ -46,12 +50,16 @@ class HeroById(Resource):
         return hero.to_dict(), 200
 
 # GET /powers
+
+
 class Powers(Resource):
     def get(self):
         powers = Power.query.all()
         return [power.to_dict(only=('id', 'name', 'description')) for power in powers], 200
 
 # GET /powers/:id and PATCH /powers/:id
+
+
 class PowerById(Resource):
     def get(self, id):
         power = db.session.get(Power, id)
@@ -79,6 +87,8 @@ class PowerById(Resource):
         return power.to_dict(only=('id', 'name', 'description')), 200
 
 # POST /hero_powers
+
+
 class HeroPowers(Resource):
     def post(self):
         data = request.get_json()
