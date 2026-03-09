@@ -16,7 +16,9 @@ class Hero(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    # Name of the superpower
     super_name = db.Column(db.String)
+    # Name of the superpower
 
     # add relationship
     hero_powers = db.relationship('HeroPower', back_populates='hero', cascade='all, delete-orphan')
@@ -34,7 +36,9 @@ class Power(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    # Name of the superpower
     description = db.Column(db.String)
+    # Detailed description of the power (min 20 chars)
 
     # add relationship
     hero_powers = db.relationship('HeroPower', back_populates='power', cascade='all, delete-orphan')
